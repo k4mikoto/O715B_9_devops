@@ -1,13 +1,20 @@
 #include <iostream>
 #include <vector>
 #include <random>
+#include <limits.h>
 
 using namespace std;
 
 bool isNumeric(const string& str){
+    if (str[0] == '-'){
+      cout << "Can't be negative" << endl;
+      return false;
+      }
     for(int a = 0; a < str.size(); a++){
-        if (!isdigit(str[a]))
-           return false;
+        if (!isdigit(str[a])){
+          cout << "Not a valid number" << endl;
+          return false;
+          }
     }
     return true;
 }
@@ -15,17 +22,28 @@ bool isNumeric(const string& str){
 int main() {
     string input;
     int n, temp;
-    bool flag = false;
+    bool flag = false, err = false;
     
     while (!flag) {
       cout << "Введите размер квадратной матрицы: ";
       getline(cin,input);
       if (isNumeric(input)) {
-      n = stoi(input);
-      flag = true;
+        err = false;
+        try {
+          n = stoi(input);
+          }
+        catch (std::out_of_range& e){
+          cout << "Out of range" << endl;
+          err = true;
+          }
+        catch (std::invalid_argument& e){
+          cout << "No data" << endl;
+          err = true;
+          }
+        if ((!err)&&(n>0)) flag = true;
+          else cout << "Can't be null" << endl;
       }
     }
-
     vector<vector<int>> matrix(n, vector<int>(n));
     
     std::random_device rseed;
