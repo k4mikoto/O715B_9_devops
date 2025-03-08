@@ -1,0 +1,48 @@
+name: C++ CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Запускать при пуше в ветку main
+  pull_request:
+    branches:
+      - main  # Запускать при создании pull request в ветку main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Используем последнюю версию Ubuntu
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Клонируем репозиторий
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential cmake
+
+      - name: Build project
+        run: |
+          make  # Сборка проекта
+
+  package:
+    needs: build  # Запускать только после успешного выполнения build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install packaging tools
+        run: |
+          sudo apt update
+          sudo apt install -y devscripts debhelper
+
+      - name: Create .deb package
+        run: |
+          mkdir -p main-deb/usr/bin
+          make install DESTDIR=$(pwd)/main-deb
+          dpkg-deb --build main-deb
+        env:
+          DESTDIR: $(pwd)/main-deb
+

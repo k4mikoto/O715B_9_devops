@@ -10,7 +10,7 @@ bool isNumeric(const string& str){
       cout << "Can't be negative" << endl;
       return false;
       }
-    for(int a = 0; a < str.size(); a++){
+    for(unsigned int a = 0; a < str.size(); a++){
         if (!isdigit(str[a])){
           cout << "Not a valid number" << endl;
           return false;
@@ -21,7 +21,7 @@ bool isNumeric(const string& str){
 
 int main() {
     string input;
-    int n, temp;
+    int n;
     bool flag = false, err = false;
     
     while (!flag) {
