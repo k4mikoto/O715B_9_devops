@@ -13,8 +13,8 @@ all: $(TARGET)
 $(TARGET): $(SRC)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRC) $(LDFLAGS)
 	
+install: $(TARGET)
+	install -Dm 755 $(TARGET) $(DESTDIR)/usr/bin/$(TARGET)
+	
 clean:
 	rm -f $(TARGET)
-
-install:
-	install -Dm 755 $(TARGET) $(DESTDIR)/usr/bin/$(TARGET)

@@ -42,6 +42,7 @@ jobs:
         run: |
           mkdir -p main-deb/usr/bin
           make install DESTDIR=$(pwd)/main-deb
+          make clean
           dpkg-deb --build main-deb
         env:
           DESTDIR: $(pwd)/main-deb
