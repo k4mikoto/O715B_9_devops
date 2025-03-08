@@ -2,7 +2,7 @@ Package: devopsproj9
 Version: 1.0
 Section: base
 Priority: optional
-Architecture: all
+Architecture: amd64
 Depends: gcc, make, g++
 Maintainer: 9th team <i59526@voenmeh.ru>
 Description: Devops project

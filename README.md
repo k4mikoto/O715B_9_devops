@@ -17,11 +17,11 @@ make
 ## Usage
 
 ```bash
-./main
+./devproj9exe
 ```
 Или если установлено через деб пакет
 ```bash
-project
+devproj9exe
 ```
 
 ## Contributing
