@@ -41,12 +41,13 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y devscripts debhelper
-          sudo apt install -y build-essential cmake
 
       - name: Create .deb package
         run: |
+          ls -la
           dpkg-deb --build .
           mv ..deb package.deb
+          ls -la
 
   release:
     needs: package
@@ -56,3 +57,4 @@ jobs:
       - name: wha happens next
         run: |
           ls -la
+          cd ..
