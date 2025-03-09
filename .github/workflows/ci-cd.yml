@@ -30,7 +30,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: proga
-          path: devproj9exe
+          path: /usr/bin/devproj9exe
 
   test:
     needs: build
