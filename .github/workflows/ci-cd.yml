@@ -29,8 +29,8 @@ jobs:
       - name: Upload executable as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: proga
-          path: /usr/bin/devproj9exe
+          name: devproj9exe
+          path: ./usr/bin
 
   test:
     needs: build
