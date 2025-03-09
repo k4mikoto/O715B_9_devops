@@ -58,7 +58,7 @@ jobs:
       - name: Run tests
         run: |
           cd cicd
-          testexe
+         ./testexe
 
   package:
     needs: test  # Запускать только после успешного выполнения build
