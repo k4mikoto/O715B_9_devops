@@ -48,3 +48,11 @@ jobs:
           dpkg-deb --build .
           mv ..deb package.deb
 
+  release:
+    needs: package
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: wha happens next
+        run: |
+          ls -la
