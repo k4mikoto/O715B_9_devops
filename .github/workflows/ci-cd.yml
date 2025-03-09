@@ -43,9 +43,17 @@ jobs:
           name: devproj9exe
           path: ./usr/bin
 
+      - name: List files
+        run: |
+          ls -l cicd/
+
+      if [ ! -f cicd/testexe ]; then
+        echo "Error"
+        exit 1
+      fi
       - name: Run tests
         run: |
-          ./cicd
+          ./cicd/testexe
 
   package:
     needs: test  # Запускать только после успешного выполнения build
