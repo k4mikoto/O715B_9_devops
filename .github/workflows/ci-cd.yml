@@ -39,7 +39,8 @@ jobs:
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v3  # Клонируем репозиторий
-        with: proga
+        with:
+        name: proga
         path: /usr/bin
 
       - name: Run tests
