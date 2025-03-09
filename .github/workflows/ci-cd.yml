@@ -92,7 +92,7 @@ jobs:
       - name: Download .deb package artifact
         uses: actions/download-artifact@v4
         with:
-          name: project.deb
+          name: package.deb
           path: .
 
       - name: release
