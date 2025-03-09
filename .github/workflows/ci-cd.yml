@@ -51,7 +51,6 @@ jobs:
 
       - name: Run tests
         run: |
-          ls -l -R
           sudo chmod 755 cicd/testexe
           ./cicd/testexe
 
@@ -60,6 +59,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Клонируем репозиторий
+
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
