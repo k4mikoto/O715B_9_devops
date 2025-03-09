@@ -22,8 +22,10 @@ jobs:
           sudo apt install -y build-essential cmake
 
       - name: Build project
-        run: |
-          make  # Сборка проекта
+        run: | 
+          cd src
+          make
+         
 
   package:
     needs: build  # Запускать только после успешного выполнения build
