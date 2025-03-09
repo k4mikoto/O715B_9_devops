@@ -27,7 +27,7 @@ jobs:
           make
          
       - name: Upload executable as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: proga
           path: devproj9exe
@@ -38,7 +38,7 @@ jobs:
 
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v3  # Клонируем репозиторий
+        uses: actions/download-artifact@v4  # Клонируем репозиторий
         with:
           name: proga
           path: /usr/bin
@@ -53,7 +53,7 @@ jobs:
 
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: proga
           path: /usr/bin
@@ -69,7 +69,7 @@ jobs:
           mv ..deb package.deb
 
       - name: Upload .deb package as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: project-deb
           path: package.deb
@@ -80,7 +80,7 @@ jobs:
 
     steps:
       - name: Download .deb package artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: project-deb
           path: .
