@@ -45,7 +45,7 @@ jobs:
 
       - name: List files
         run: |
-          ls -l cicd/
+          ls -l ./cicd/
 
       - name: Run tests
         run: |
