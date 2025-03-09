@@ -32,6 +32,12 @@ jobs:
           name: devproj9exe
           path: ./usr/bin
 
+      - name: Upload testfile as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: testexe
+          path: ./cicd
+
   test:
     needs: build
     runs-on: ubuntu-latest  # Используем последнюю версию Ubuntu
