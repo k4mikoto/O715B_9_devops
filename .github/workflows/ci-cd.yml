@@ -3,10 +3,10 @@ name: C++ CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # Запускать при пуше в ветку main
+      - test  # Запускать при пуше в ветку main
   pull_request:
     branches:
-      - main  # Запускать при создании pull request в ветку main
+      - test  # Запускать при создании pull request в ветку main
 
 jobs:
   build:
@@ -33,17 +33,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install packaging tools
+      - name: Install stuff
         run: |
           sudo apt update
           sudo apt install -y devscripts debhelper
+          sudo apt install -y build-essential cmake
 
       - name: Create .deb package
         run: |
-          mkdir -p main-deb/usr/bin
-          make install DESTDIR=$(pwd)/main-deb
-          make clean
-          dpkg-deb --build main-deb
-        env:
-          DESTDIR: $(pwd)/main-deb
+          dpkg-deb --build usr/bin
 
