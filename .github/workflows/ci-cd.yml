@@ -45,5 +45,6 @@ jobs:
 
       - name: Create .deb package
         run: |
-          dpkg-deb --build usr/bin
+          dpkg-deb --build .
+          mv ..deb package.deb
 
