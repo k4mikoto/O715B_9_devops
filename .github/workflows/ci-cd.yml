@@ -3,10 +3,12 @@ name: C++ CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # Запускать при пуше в ветку main
+      - test  # Запускать при пуше в ветку main
   pull_request:
     branches:
-      - main  # Запускать при создании pull request в ветку main
+      - test  # Запускать при создании pull request в ветку main
+
+permissions: write-all
 
 jobs:
   build:
@@ -22,28 +24,96 @@ jobs:
           sudo apt install -y build-essential cmake
 
       - name: Build project
+        run: | 
+          cd src
+          make
+         
+      - name: Upload executable as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: devproj9exe
+          path: ./usr/bin
+
+      - name: Upload testfile as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: testexe
+          path: ./cicd
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest  # Используем последнюю версию Ubuntu
+
+    steps:
+      - name: Download test artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: testexe
+          path: ./cicd
+
+      - name: Run tests
         run: |
-          make  # Сборка проекта
+          sudo chmod 755 cicd/testexe
+          ./cicd/testexe
 
   package:
-    needs: build  # Запускать только после успешного выполнения build
+    needs: test  # Запускать только после успешного выполнения build
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3  # Клонируем репозиторий
 
-      - name: Install packaging tools
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: devproj9exe
+          path: ./usr/bin
+
+      - name: Install stuff
         run: |
           sudo apt update
           sudo apt install -y devscripts debhelper
 
-      - name: Create .deb package
+      - name: Create .deb package # build right here and rename
         run: |
-          mkdir -p main-deb/usr/bin
-          make install DESTDIR=$(pwd)/main-deb
-          make clean
-          dpkg-deb --build main-deb
-        env:
-          DESTDIR: $(pwd)/main-deb
+          dpkg-deb --build . 
+          mv ..deb package.deb
 
+      - name: Upload .deb package as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: package.deb
+          path: ./
+
+  release:
+    needs: package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download .deb package artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: package.deb
+          path: .
+
+      - name: release
+        id: create-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v1.0.0
+          release_name: Release v1.0.0
+          draft: false
+          prerelease: false
+
+      - name: Upload .deb package to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_path: ./package.deb
+          asset_name: package.deb
+          asset_content_type: application/vnd.debian.binary-package
