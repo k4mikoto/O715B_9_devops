@@ -8,6 +8,8 @@ on:
     branches:
       - test  # Запускать при создании pull request в ветку main
 
+permissions: write-all
+
 jobs:
   build:
     runs-on: ubuntu-latest  # Используем последнюю версию Ubuntu
