@@ -3,10 +3,10 @@ name: C++ CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # Запускать при пуше в ветку main
+      - test  # Запускать при пуше в ветку main
   pull_request:
     branches:
-      - main  # Запускать при создании pull request в ветку main
+      - test  # Запускать при создании pull request в ветку main
 
 jobs:
   build:
