@@ -23,11 +23,31 @@ jobs:
 
       - name: Build project
         run: | 
-          ls -la
           cd src
-          ls -la
           make
          
+  test:
+    runs-on: ubuntu-latest  # Используем последнюю версию Ubuntu
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Клонируем репозиторий
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential cmake
+
+      - name: Build project
+        run: | 
+          cd src
+          make test
+          
+      - name: Run tests
+        run: |
+        cd ..
+        cd cicd
+        ./testexe
 
   package:
     needs: build  # Запускать только после успешного выполнения build
@@ -42,12 +62,10 @@ jobs:
           sudo apt update
           sudo apt install -y devscripts debhelper
 
-      - name: Create .deb package
+      - name: Create .deb package # build right here and rename
         run: |
-          ls -la
-          dpkg-deb --build .
+          dpkg-deb --build . 
           mv ..deb package.deb
-          ls -la
 
   release:
     needs: package
@@ -57,6 +75,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         
-      - name: wha happens next
+      - name: release
         run: |
-          ls -la
+        
