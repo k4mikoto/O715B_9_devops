@@ -52,7 +52,7 @@ jobs:
       - name: Run tests
         run: |
           ls -l -R
-          sudo chmod 755 /cicd/testexe
+          sudo chmod 755 cicd/testexe
           ./cicd/testexe
 
   package:
