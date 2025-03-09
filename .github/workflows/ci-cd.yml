@@ -43,9 +43,12 @@ jobs:
           name: devproj9exe
           path: ./usr/bin
 
-      - name: List files
+      - name: Check files
         run: |
-          ls -l ./cicd/
+          if [ ! -f cicd/testexe ]; then
+            echo "Error not found"
+            exit 1
+          fi
 
       - name: Run tests
         run: |
