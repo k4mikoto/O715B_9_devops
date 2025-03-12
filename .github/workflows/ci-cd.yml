@@ -103,7 +103,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build Docker image
         run: |
-          docker build -t genkted/devproj:latest .
+          docker build -t devproj:latest .
       - name: Run Docker container for testing
         run: |
           docker run --rm genkted/devproj:latest ./usr/bin/devproj9exe
