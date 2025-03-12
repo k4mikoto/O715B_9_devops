@@ -11,3 +11,5 @@ RUN make all
 RUN dpkg -i /O715B_9_devops/O715B_9_devops.deb
 
 ENTRYPOINT /O715B_9_deops/usr/bin/devproj9exe
+
+
