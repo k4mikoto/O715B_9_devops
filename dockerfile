@@ -1,13 +1,13 @@
 FROM ubuntu:latest
 
-COPY .
+COPY . /3lab
 
-WORKDIR /O715B_9_devops
+WORKDIR /3lab
 
 RUN apt-get update && apt-get install -y male debhelper dpkg-dev libgtest-dev
 
 RUN make all
 
-RUN dpkg -i /O715B_9_devops/O715B_9_devops.deb
+RUN dpkg -i /3lab/O715B_9_devops.deb
 
-CMD ["/O715B_9_devops/usr/bin/devproj9exe"]
+CMD ["/3lab/usr/bin/devproj9exe"]
