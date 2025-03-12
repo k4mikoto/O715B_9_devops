@@ -103,10 +103,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build Docker image
         run: |
-          docker build -t genkted/O715B_9_devops:latest .
+          docker build -t genkted/o715b_9_devops:latest .
       - name: Run Docker container for testing
         run: |
-          docker run --rm genkted/devproj:latest ./usr/bin/devproj9exe
+          docker run --rm genkted/o715b_9_devops:latest ./usr/bin/devproj9exe
       - name: Push Docker image
         run: |
-          docker push genkted/devproj:latest
+          docker push genkted/o715b_9_devops:latest
