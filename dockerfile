@@ -4,7 +4,7 @@ COPY . /3lab
 
 WORKDIR /3lab
 
-RUN apt-get update && apt-get install -y male debhelper dpkg-dev libgtest-dev
+RUN apt-get update && apt-get install -y make debhelper dpkg-dev libgtest-dev
 
 RUN make all
 
