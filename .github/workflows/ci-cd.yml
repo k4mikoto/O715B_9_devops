@@ -106,7 +106,7 @@ jobs:
           docker build -t genkted/3lab:latest .
       - name: Run Docker container for testing
         run: |
-          docker run --rm genkted/3lab:latest /3lab/usr/bin/devproj9exe
+          docker run --rm genkted/3lab:latest /3lab/cicd/testexe
       - name: Push Docker image
         run: |
           docker push genkted/3lab:latest
